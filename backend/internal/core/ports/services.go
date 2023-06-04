@@ -13,12 +13,12 @@ type CalendarServicer interface {
 	List(ctx context.Context) ([]domain.Calendar, error)
 }
 
-type EventServicer interface {
-	Create(ctx context.Context, r CreateEventRequest) (domain.Event, error)
-	Update(ctx context.Context, r UpdateEventRequest) (domain.Event, error)
-	Get(ctx context.Context, uuid string) (domain.Event, error)
+type EntryServicer interface {
+	Create(ctx context.Context, r CreateEntryRequest) (domain.Entry, error)
+	Update(ctx context.Context, r UpdateEntryRequest) (domain.Entry, error)
+	Get(ctx context.Context, uuid string) (domain.Entry, error)
 	Delete(ctx context.Context, uuid string) error
-	List(ctx context.Context) ([]domain.Event, error)
+	List(ctx context.Context) ([]domain.Entry, error)
 }
 
 type UserServicer interface {

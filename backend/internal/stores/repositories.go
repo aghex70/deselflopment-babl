@@ -13,11 +13,11 @@ type CalendarRepository interface {
 	Delete(ctx context.Context, uuid string) error
 }
 
-type EventRepository interface {
-	Create(ctx context.Context, a domain.Event) (domain.Event, error)
-	Update(ctx context.Context, a domain.Event) (domain.Event, error)
-	GetById(ctx context.Context, uuid string) (domain.Event, error)
-	List(ctx context.Context) ([]domain.Event, error)
+type EntryRepository interface {
+	Create(ctx context.Context, a domain.Entry) (domain.Entry, error)
+	Update(ctx context.Context, a domain.Entry) (domain.Entry, error)
+	GetById(ctx context.Context, uuid string) (domain.Entry, error)
+	List(ctx context.Context) ([]domain.Entry, error)
 	Delete(ctx context.Context, uuid string) error
 }
 

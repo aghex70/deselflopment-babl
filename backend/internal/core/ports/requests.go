@@ -9,11 +9,11 @@ type UpdateCalendarRequest struct {
 	Name       			string 		`json:"name"`
 }
 
-type CreateEventRequest struct {
+type CreateEntryRequest struct {
 	Name       		string 		`json:"name"`
 }
 
-type UpdateEventRequest struct {
+type UpdateEntryRequest struct {
 	Id					string  	`json:"id"`
 	Name       			string 		`json:"name"`
 }

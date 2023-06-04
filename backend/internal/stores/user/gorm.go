@@ -16,10 +16,12 @@ type GormRepository struct {
 }
 
 type User struct {
-	Id            string     `gorm:"primaryKey;column:id"`
-	Name          string     `gorm:"column:name"`
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	Id        string `gorm:"primaryKey;column:id"`
+	Name      string
+	Active    bool
+	Admin     bool
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Tabler interface {
@@ -28,7 +30,7 @@ type Tabler interface {
 
 // TableName overrides the table name
 func (User) TableName() string {
-	return "deselflopment-babl_users"
+	return "babl_users"
 }
 
 func (gr *GormRepository) Create(ctx context.Context, u domain.User) (domain.User, error) {
@@ -102,18 +104,18 @@ func NewGormRepository(db *gorm.DB) (*GormRepository, error) {
 
 func (uu User) ToDto() domain.User {
 	return domain.User{
-		Name: 		  uu.Name,
-		CreatedAt:    uu.CreatedAt,
-		Id:           uu.Id,
-		UpdatedAt:     uu.UpdatedAt,
+		Name:      uu.Name,
+		CreatedAt: uu.CreatedAt,
+		Id:        uu.Id,
+		UpdatedAt: uu.UpdatedAt,
 	}
 }
 
 func fromDto(uu domain.User) User {
 	return User{
-		Name: 		  uu.Name,
-		CreatedAt:    uu.CreatedAt,
-		Id:           uu.Id,
-		UpdatedAt:    uu.UpdatedAt,
+		Name:      uu.Name,
+		CreatedAt: uu.CreatedAt,
+		Id:        uu.Id,
+		UpdatedAt: uu.UpdatedAt,
 	}
 }

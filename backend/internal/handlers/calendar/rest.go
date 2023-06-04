@@ -2,9 +2,8 @@ package calendar
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
-	_ "github.com/aghex70/deselflopment-babl/docs"
 	"github.com/aghex70/deselflopment-babl/internal/core/ports"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/aghex70/deselflopment-babl/internal/core/domain"
+	store "github.com/aghex70/deselflopment-babl/internal/stores/user"
 	"gorm.io/gorm"
 	"log"
 	"time"
@@ -16,10 +17,12 @@ type GormRepository struct {
 }
 
 type Calendar struct {
-	Id            string     `gorm:"primaryKey;column:id"`
-	Name          string     `gorm:"column:name"`
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	Id        string `gorm:"primaryKey;column:id"`
+	Name      string
+	UserID    uint
+	User      store.User `gorm:"foreignkey:UserID"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Tabler interface {
@@ -28,7 +31,7 @@ type Tabler interface {
 
 // TableName overrides the table name
 func (Calendar) TableName() string {
-	return "deselflopment-babl_calendars"
+	return "babl_calendars"
 }
 
 func (gr *GormRepository) Create(ctx context.Context, c domain.Calendar) (domain.Calendar, error) {
@@ -102,18 +105,18 @@ func NewGormRepository(db *gorm.DB) (*GormRepository, error) {
 
 func (cc Calendar) ToDto() domain.Calendar {
 	return domain.Calendar{
-		Name: 		  cc.Name,
-		CreatedAt:    cc.CreatedAt,
-		Id:           cc.Id,
-		UpdatedAt:     cc.UpdatedAt,
+		Name:      cc.Name,
+		CreatedAt: cc.CreatedAt,
+		Id:        cc.Id,
+		UpdatedAt: cc.UpdatedAt,
 	}
 }
 
 func fromDto(cc domain.Calendar) Calendar {
 	return Calendar{
-		Name: 		  cc.Name,
-		CreatedAt:    cc.CreatedAt,
-		Id:           cc.Id,
-		UpdatedAt:    cc.UpdatedAt,
+		Name:      cc.Name,
+		CreatedAt: cc.CreatedAt,
+		Id:        cc.Id,
+		UpdatedAt: cc.UpdatedAt,
 	}
 }

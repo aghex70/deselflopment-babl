@@ -8,9 +8,9 @@ import (
 	calendarService "github.com/aghex70/deselflopment-babl/internal/core/services/calendar"
 	calendarHandler "github.com/aghex70/deselflopment-babl/internal/handlers/calendar"
 	calendarRepository "github.com/aghex70/deselflopment-babl/internal/stores/calendar"
-	eventService "github.com/aghex70/deselflopment-babl/internal/core/services/event"
-	eventHandler "github.com/aghex70/deselflopment-babl/internal/handlers/event"
-	eventRepository "github.com/aghex70/deselflopment-babl/internal/stores/event"
+	entryService "github.com/aghex70/deselflopment-babl/internal/core/services/entry"
+	entryHandler "github.com/aghex70/deselflopment-babl/internal/handlers/entry"
+	entryRepository "github.com/aghex70/deselflopment-babl/internal/stores/entry"
 	userService "github.com/aghex70/deselflopment-babl/internal/core/services/user"
 	userHandler "github.com/aghex70/deselflopment-babl/internal/handlers/user"
 	userRepository "github.com/aghex70/deselflopment-babl/internal/stores/user"
@@ -26,19 +26,19 @@ func ServeCommand(cfg *config.Config) *cobra.Command {
 				panic(err)
 			}
 			calendarR, _ := calendarRepository.NewGormRepository(gdb)
-			eventR, _ := eventRepository.NewGormRepository(gdb)
+			entryR, _ := entryRepository.NewGormRepository(gdb)
 			userR, _ := userRepository.NewGormRepository(gdb)
 
 			calendarS, _ := calendarService.NewService(calendarR)
 			calendarH := calendarHandler.NewHandler(calendarS)
 
-			eventS, _ := eventService.NewService(eventR)
-			eventH := eventHandler.NewHandler(eventS)
+			entryS, _ := entryService.NewService(entryR)
+			entryH := entryHandler.NewHandler(entryS)
 
 			userS, _ := userService.NewService(userR)
 			userH := userHandler.NewHandler(userS)
 
-			s := server.NewRestServer(cfg.Server.Rest, calendarH, eventH, userH)
+			s := server.NewRestServer(cfg.Server.Rest, calendarH, entryH, userH)
 			err = s.StartServer()
 			if err != nil {
 				panic(err)
