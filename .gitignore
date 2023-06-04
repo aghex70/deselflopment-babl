@@ -1,0 +1,13 @@
+# Backend
+backend/.env
+backend/*env
+backend/tmp
+
+# Frontend
+frontend/*env
+frontend/.env-dev
+frontend/.env-prod
+
+# Miscellaneous
+.idea
+.vscode

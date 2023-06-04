@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        fail_fast: true
+      - id: end-of-file-fixer
+        fail_fast: true
+      - id: check-yaml
+        fail_fast: true
+      - id: check-added-large-files
+        fail_fast: true
+  - repo: local
+    hooks:
+      - id: custom-pre-commit
+        name: Golang pre-commit script
+        entry: sh
+        language: system
+        args: [ "pre-commit.sh" ]
+        require_serial: true
