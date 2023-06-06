@@ -11,62 +11,6 @@ type Handler struct {
 	userService ports.UserServicer
 }
 
-// CreateUser godoc
-// @Summary Create a user
-// @Description Create a user
-// @ID create-user
-// @Accept json
-// @Produce json
-// @Param user body domain.User true "user data"
-// @Success 200 {object} handlers.JSONOKResponse{data=domain.User, statusCode=int}
-// @Failure 400 {object} handlers.JSONErrorResponse{message=string, statusCode=int, message=string}
-// @Failure 500 {object} handlers.JSONErrorResponse{message=string, statusCode=int, message=string}
-// @Router /user [post]
-func (h Handler) CreateUser(c *gin.Context) {
-	var r ports.CreateUserRequest
-
-	if err := c.ShouldBindJSON(&r); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	nu, err := h.userService.Create(context.TODO(), r)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusCreated, gin.H{"user": nu})
-}
-
-// UpdateUser godoc
-// @Summary Update a user
-// @Description Update a user
-// @ID update-user
-// @Accept json
-// @Produce json
-// @Param  id path string true "user ID" user body domain.User true "user data"
-// @Success 200 {object} handlers.JSONOKResponse{data=domain.User, statusCode=int}
-// @Failure 400 {object} handlers.JSONErrorResponse{message=string, statusCode=int, message=string}
-// @Failure 500 {object} handlers.JSONErrorResponse{message=string, statusCode=int, message=string}
-// @Router /user/{id} [put]
-func (h Handler) UpdateUser(c *gin.Context) {
-	var r ports.UpdateUserRequest
-
-	if err := c.ShouldBindJSON(&r); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	uu, err := h.userService.Update(context.TODO(), r)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"user": uu})
-}
-
 // GetUser godoc
 // @Summary Get a user
 // @Description Get a user by ID

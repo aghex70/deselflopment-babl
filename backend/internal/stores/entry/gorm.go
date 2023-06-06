@@ -18,7 +18,7 @@ type GormRepository struct {
 type Entry struct {
 	Id          string `gorm:"primaryKey;column:id"`
 	Name        string
-	EventType   string
+	EventType   uint
 	EventDate   time.Time
 	Origin      string
 	Description string
@@ -110,18 +110,32 @@ func NewGormRepository(db *gorm.DB) (*GormRepository, error) {
 
 func (ee Entry) ToDto() domain.Entry {
 	return domain.Entry{
-		Name:      ee.Name,
-		CreatedAt: ee.CreatedAt,
-		Id:        ee.Id,
-		UpdatedAt: ee.UpdatedAt,
+		Name:        ee.Name,
+		CreatedAt:   ee.CreatedAt,
+		Id:          ee.Id,
+		UpdatedAt:   ee.UpdatedAt,
+		EventType:   domain.EventType(ee.EventType),
+		EventDate:   ee.EventDate,
+		Origin:      ee.Origin,
+		Description: ee.Description,
+		Duration:    ee.Duration,
+		Score:       ee.Score,
+		Positive:    ee.Positive,
 	}
 }
 
 func fromDto(ee domain.Entry) Entry {
 	return Entry{
-		Name:      ee.Name,
-		CreatedAt: ee.CreatedAt,
-		Id:        ee.Id,
-		UpdatedAt: ee.UpdatedAt,
+		Name:        ee.Name,
+		CreatedAt:   ee.CreatedAt,
+		Id:          ee.Id,
+		UpdatedAt:   ee.UpdatedAt,
+		EventType:   uint(ee.EventType),
+		EventDate:   ee.EventDate,
+		Origin:      ee.Origin,
+		Description: ee.Description,
+		Duration:    ee.Duration,
+		Score:       ee.Score,
+		Positive:    ee.Positive,
 	}
 }

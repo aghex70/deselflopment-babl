@@ -2,18 +2,19 @@ package domain
 
 import "time"
 
-type EntryType string
+type EventType int
 
 const (
-	Exercise  EntryType = "exercise"
-	Statement EntryType = "statement"
-	Event     EntryType = "event"
+	Personal EventType = iota
+	Statement
+	Event
+	Exercise
 )
 
 type Entry struct {
 	Id          string        `json:"id"`
 	Name        string        `json:"name"`
-	EntryType   EntryType     `json:"entryType"`
+	EventType   EventType     `json:"eventType"`
 	EventDate   time.Time     `json:"eventDate"`
 	Origin      string        `json:"origin"`
 	Description string        `json:"description"`
