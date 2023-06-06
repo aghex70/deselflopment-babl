@@ -1,21 +1,36 @@
 version: '3.9'
 
 services:
-  backend:
+  babl-backend:
     container_name: deselflopment-babl-backend
     build:
       context: backend
       dockerfile: Dockerfile
-    command: ["air", "automigrate", "&&", "air", "serve"]
+    command: ["air", "serve"]
     env_file:
       - backend/.env
     ports:
-      - "18009:18009"
+      - "18007:18007"
     networks:
-      deselflopment-database-network: { }
-      deselflopment-webserver-network: { }
+      deselflopment-database-network: {}
+      deselflopment-webserver-network: {}
     volumes:
       - ./backend:/deselflopment-babl/backend
+
+  babl-frontend:
+    container_name: deselflopment-babl-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    env_file:
+      - frontend/.env
+    ports:
+      - "13002:3000"
+    networks:
+      deselflopment-webserver-network: {}
+    stdin_open: true
+    volumes:
+      - ./frontend:/deselflopment-babl/frontend
 
 networks:
   deselflopment-database-network:
