@@ -16,12 +16,16 @@ type GormRepository struct {
 }
 
 type User struct {
-	Id        string `gorm:"primaryKey;column:id"`
-	Name      string
-	Active    bool
-	Admin     bool
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Id                string `gorm:"primaryKey;column:id"`
+	Name              string
+	Email             string
+	ActivationCode    string
+	Active            bool
+	Admin             bool
+	Password          string
+	ResetPasswordCode string
+	CreatedAt         time.Time
+	UpdatedAt         time.Time
 }
 
 type Tabler interface {
